@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luggage Hero</title>
+
+
+
+    <!-- Here Onwards all the external links wil be attahed -->
+    <!-- We gona use Bootstrap, google Fonts, icons etc -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+    <div class="fluid-container">
+        
+        <div class=" navbar navbar-light bg-secondary">
+            <a class="navbar-brand text-warning" href="home.html" style="font-family: 'Nosifer', cursive;">
+                <img src= {{ url_for('static', filename='luggagehero_icon.png') }} alt="LuggageHero" width="40" height="30" class="d-inline-block align-text-top"> LuggageHero
+            </a>
+        </div>    
+
+
+        <div class="bg-info">
+            <div class="bg-info">
+                <div class = "pt-5 pb-5" style="font-family: 'Merienda', cursive;"> 
+                    <h1 class="text-center my-4">Luggage Storage Near You</h1>
+                    <h4 class="text-center mb-3">Find luggage Storage in certified shops and hotels</h4>
+                </div>
+                <form action="/" method="post">
+                <div class="container d-flex justify-content-center pb-5">
+                    <div class="row row-cols-3 g-0">
+                        <div class="col-sm-5 ">
+                            <input type="text" class="form-control rounded-0 rounded-start" placeholder="Location " name="location" aria-label="City">
+                        </div>
+                        <div class="col-sm-3 ">
+                            <input type="date" class="form-control rounded-0" placeholder="Date" name="date" aria-label="State">
+                        </div>
+                        <div class="col-sm-3">
+                            
+                                <button type="submit" class="form-control btn btn-danger rounded-0 rounded-end text-" placeholder="GO" aria-label="Zip">GO</button>
+                            
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+       
+
+        <h2 class="text-center mt-5 mb-4 pb-5" style="font-family: 'Merienda', cursive;">Pricing per bag</h2>
+        <div class="d-flex justify-content-center mb-5" style="font-family: 'Merienda', cursive;">
+            <div class="ms-3">
+                <h4 class="mb-4">Bumper Offer</h4>
+                <h2>250 Rs/day</h2>
+                <h6>per bag</h6>
+            </div>
+            <div class="ms-4 ps-5">
+                <h4 class="mb-4">Pay as you go</h4>
+                <h2>30 Rs/hour</h2>
+                <h6>per bag</h6>
+            </div>
+            
+        </div>
+        <hr>
+
+
+
+        <div class="my-5 pb-5">
+            <h5 class="text-center mb-5" style="font-family: 'Merienda', cursive;">How Luggage Storage works?</h5>
+            <div class="row row-cols-3 d-flex justify-content-center" style="font-family: 'Merienda', cursive;">
+                <div class="col-sm-2 ms-5">
+                    <img src="{{url_for('static', filename = 'book online.png')}}" class="ms-4 py-3 text-center" alt="" >
+                    <div class="">
+                    <p class="text-center">Book Online and Receive Direction.</p>
+                    </div>
+                </div>
+                <div class="col-sm-2 mx-5">
+                    <img src="{{ url_for('static', filename = 'Drop_luggage.png') }}" class="py-3" alt="...">
+                    <div class="">
+                    <p class="">Drop off the luggage at a LuggageHero shop.</p>
+                    </div>
+                </div>
+                <div class="col-sm-2 mx-2">
+                    <img src="{{url_for('static', filename = 'enjoy_luggagefree.png')}}" class="py-3" alt="...">
+                    <div class="">
+                    <p class="">Enjoy your time without the weight of your Luggage.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script>
+
+        
+
+    </script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
