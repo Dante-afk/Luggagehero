@@ -113,7 +113,6 @@
 
 
     <script>
-
           mapboxgl.accessToken = 'pk.eyJ1IjoibmF5YW5tZyIsImEiOiJja3hrcnh3MGQwNWdxMm9rb3ZhaWdlM2I1In0.AApGj8R9Bh-iyGOkfs-Dpw';
             const geocoder = new MapboxGeocoder({
               accessToken: mapboxgl.accessToken,
@@ -128,10 +127,7 @@
                 address_coord['Latitude'] = e.result["center"][1];
             }); 
 
-
-
           document.getElementById("MyStore").addEventListener('submit', handleform);
-
           function handleform(e){
             e.preventDefault();
       
@@ -148,6 +144,7 @@
 
             console.log("Form data submitted")
           }
+          
 
 
     </script>
