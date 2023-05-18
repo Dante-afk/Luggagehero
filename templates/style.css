@@ -103,3 +103,57 @@ border: none;
 margin: 5px 30px;
 background-color: rgb(71, 177, 61);
 }
+
+
+
+/*For hom.html footers */
+
+footer {
+    display:flex;
+    flex-direction: column;
+    background-color: black;
+    align-items: center;
+    color:white;
+}
+
+.footer0 {
+    font-weight:1200;
+    transition-duration: 1s;
+}
+
+.footer0:hover {
+    color:rgb(243, 168, 7);
+}
+
+.footer3 {
+    margin-top:60px;
+    margin-bottom: 20px;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer2 .heading:hover {
+    color:rgb(243, 168, 7);
+}
+
+.footer2 .div:hover {
+    transform: scale(1.05);
+}
+
+.footer2 {
+    display: flex;
+    width:100%;
+    justify-content:space-evenly;
+    align-items: center;
+    text-decoration: none;
+    flex-wrap: wrap;
+}
+
+.footer3 h4 {
+    margin:0 10px;
+}
+
+.footer2 div {
+    margin:10px;
+}
