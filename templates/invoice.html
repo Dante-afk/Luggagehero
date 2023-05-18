@@ -17,9 +17,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h1 class="text-uppercase  ">Invoice</h1>
-                            <div class="billed"><span class="font-weight-bold text-uppercase"><b>Billed:</b> </span><span class="ml-1">Dhruv Mehta</span></div>
-                            <div class="billed"><span class="font-weight-bold text-uppercase"><b>Date: </b></span><span class="ml-1">May 23, 2023</span></div>
-                            <div class="billed"><span class="font-weight-bold text-uppercase"><b>Order ID:</b> </span><span class="ml-1">#1136271</span></div>
+                            <div class="billed"><span class="font-weight-bold text-uppercase"><b>Billed:</b> </span><span class="ml-1">{{bill['billed']}}</span></div>
+                            <div class="billed"><span class="font-weight-bold text-uppercase"><b>Date: </b></span><span class="ml-1">{{bill['Date']}}</span></div>
+                            <div class="billed"><span class="font-weight-bold text-uppercase"><b>Order ID:</b> </span><span class="ml-1">{{bill['order_Id']}}</span></div>
                         </div>
                         
                     </div>
@@ -38,16 +38,10 @@
                                 <tbody>
                                     <tr>
                                         <td>Luggage Bag</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>Total</td>
-                                        <td>940</td>
+                                        <td>{{bill['Unit']}}</td>
+                                        <td>{{bill['Days']}}</td>
+                                        <td>80</td>
+                                        <td>{{bill['billAmount']}}</td>
                                     </tr>
                                 </tbody>
                             </table>
