@@ -5,6 +5,10 @@ import re
 from flask_bcrypt import Bcrypt
 import os
 from datetime import date
+<<<<<<< HEAD
+=======
+from datetime import datetime
+>>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
@@ -27,6 +31,10 @@ def home():
         session['location'] = location
         date = request.form['date']
         session['date'] = date
+<<<<<<< HEAD
+=======
+        print(session['userid'])
+>>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
         return redirect(url_for('index'))
 
     return render_template('home.html')
@@ -49,7 +57,11 @@ def login():
             if(obj_bcrpt.check_password_hash(account[3], password)):
                 session['userName'] = account[1]
                 session['userid'] = account[0]
+<<<<<<< HEAD
                 print("bas bhai")
+=======
+                print(session['userid'])
+>>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
                 return render_template("home.html", userName = session['userName']) 
         
     return render_template("login.html")
@@ -140,6 +152,10 @@ def index():
 
 @app.route('/store', methods = ['GET', 'POST'])
 def store_registration():
+<<<<<<< HEAD
+=======
+    print("store_regestration backend!!")
+>>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
     if request.method == 'POST' and 'email' in request.form and 'bussinessaddress' in request.form:
 
         print("Form Reached Backend")
@@ -166,7 +182,11 @@ def store_registration():
         store_photo = request.files['image']
 
         #print(store_photo.filename)
+<<<<<<< HEAD
         store_photo.save(os.path.join(app.config['UPLOAD_FOLDER'], store_photo.filename))
+=======
+        # store_photo.save(os.path.join(app.config['UPLOAD_FOLDER'], store_photo.filename))
+>>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
         cursor = db.connection.cursor()
         cursor.execute(''' INSERT INTO storeowner VALUES(NULL, %s, %s, %s, %s) ''', (storeKeeperName, storeKeeperPhone, storeKeeperEmail, hash_password))
         db.connection.commit()
@@ -195,12 +215,21 @@ def store_registration():
 def storebooking():
     store_name = ""
     if request.method == 'POST' and 'storeId' in request.form :
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
         storeid = request.form['storeId']
         session['storeId'] = storeid
         cursor = db.connection.cursor()
         cursor.execute(''' SELECT storeName FROM store WHERE storeId = %s ''', (storeid))
         store_name = cursor.fetchone()
         cursor.close()
+<<<<<<< HEAD
+=======
+        print(session['userid'])
+
+>>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
         # session['bagCount'] = bagCount
         # session['orderDuration'] = orderDuration
         # session['bookingdate'] = bookingdate
@@ -208,11 +237,16 @@ def storebooking():
         # session['billAmount'] = billAmount
         # print("data reached backend")
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
     return render_template("booking.html", storename = store_name)
 
 @app.route("/invoice", methods = ['POST', 'GET'])
 def invoice():
     if request.method == 'POST' and 'bag_Count' in request.form and 'day_Count' in request.form and 'date' in request.form :
+<<<<<<< HEAD
         bagCount = request.form['bag_Count']
         orderDuration = request.form['day_Count']
         bookingdate = request.form['date']
@@ -231,6 +265,37 @@ def invoice():
         
         
         cursor.execute(''' SELECT Order_ID FROM order WHERE storeId = %s ''', (session['storeid']))
+=======
+        userId = session['userid']
+        storeId = int(session['storeId'])
+        bagCount = int(request.form['bag_Count'])
+        orderDuration = int(request.form['day_Count'])
+        bookingdate = request.form['date']
+        print(bookingdate)
+        print(type(bookingdate))
+        orderdate = str(date.today())
+        print(orderdate)
+        print(type(orderdate))
+        billAmount = int(bagCount) * int(orderDuration) * 250
+        
+        cursor = db.connection.cursor()
+        cursor.execute('''INSERT INTO `Order` VALUES (NULL,%s,%s,%s,%s,%s,%s,%s)''', (userId,storeId,bagCount,orderDuration,orderdate,bookingdate,billAmount))
+        db.connection.commit()
+
+        # insert_statement = "INSERT INTO order (Order_ID, userId, storeId, bagcount, daycount, date_of_order, booking_date, Amount) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+
+        # Data for insertion
+        # data = ('NULL', session['userid'], session['storeId'], bagCount, orderDuration, orderdate, bookingdate, billAmount)
+
+        # Execute the INSERT statement
+        # cursor.execute(insert_statement, data)
+        # db.connection.commit()
+        
+        cursor.execute(''' SELECT storeName FROM store WHERE storeId = %s ''', (session['storeId']))
+        store_name = cursor.fetchone()
+        
+        cursor.execute(''' SELECT Order_ID FROM `order` WHERE storeId = %s ''', (session['storeId']))
+>>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
         store_name = cursor.fetchone()
 
         cursor.close()
