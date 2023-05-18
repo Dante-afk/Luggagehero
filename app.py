@@ -228,36 +228,32 @@ def invoice():
         orderdate = str(date.today())
         print(orderdate)
         print(type(orderdate))
-        billAmount = int(bagCount) * int(orderDuration) * 250
+        billAmount = int(bagCount) * int(orderDuration) * 80
         
         cursor = db.connection.cursor()
         cursor.execute('''INSERT INTO `Order` VALUES (NULL,%s,%s,%s,%s,%s,%s,%s)''', (userId,storeId,bagCount,orderDuration,orderdate,bookingdate,billAmount))
         db.connection.commit()
-
-        # insert_statement = "INSERT INTO order (Order_ID, userId, storeId, bagcount, daycount, date_of_order, booking_date, Amount) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-
-        # Data for insertion
-        # data = ('NULL', session['userid'], session['storeId'], bagCount, orderDuration, orderdate, bookingdate, billAmount)
-
-        # Execute the INSERT statement
-        # cursor.execute(insert_statement, data)
-        # db.connection.commit()
         
         cursor.execute(''' SELECT storeName FROM store WHERE storeId = %s ''', (session['storeId']))
-        store_name = cursor.fetchone()
+        store_Name = cursor.fetchone()
         
         cursor.execute(''' SELECT Order_ID FROM `order` WHERE storeId = %s ''', (session['storeId']))
-        store_name = cursor.fetchone()
+        order_Id = cursor.fetchone()
 
         cursor.close()
 
-        # bill = {
-        #     "billed" : session['userName'],
-        #     "Date" : orderdate,
-        #     "OrderID" : 
-        # }
+        bill = {
+            "billed" : session['userName'],
+            "Date" : orderdate,
+            "OrderId" : order_Id,
+            "Unit" : bagCount,
+            "Days" : orderDuration,
+            "billAmount" : billAmount
+        }
+        print(store_Name)
+        print(order_Id)
 
-    return render_template("invoice.html")
+    return render_template("invoice.html", bill = bill)
 
 if __name__ == "__main__" :
     app.run(debug = True)
