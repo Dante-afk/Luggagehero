@@ -20,8 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="fluid-container">
@@ -36,17 +35,10 @@
             <div class="collapse navbar-collapse" id="navbarSuppportedContent">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item active">
-<<<<<<< HEAD
-                        <a class="nav-link" href="login.html">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.html">Register</a>
-=======
                         <a class="nav-link" href="login">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="register">Register</a>
->>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
                     </li>
                 </ul>
             </div>
@@ -128,7 +120,7 @@
         <div class="footer2" style="font-family: 'Merienda', cursive;">
             <div class="product">
                 <div class="heading">Store owner</div>
-                <div class="div">Become a store owner</div>
+                <div class="div"><a href="store" style="text-decoration: none; color: white;">Become a LuggageHero</a></div>
                 <div class="div">Advertise</div>
                 <div class="div">Pricing</div>
                 <div class="div">Product Business</div>

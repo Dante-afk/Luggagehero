@@ -6,6 +6,7 @@ from flask_bcrypt import Bcrypt
 import os
 from datetime import date
 from datetime import datetime
+import time
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
@@ -163,28 +164,31 @@ def store_registration():
         storecity = request.form['city']
         storecountry = request.form['country']
         storestate = request.form['state']
-        storepincode = request.form['pincode']
-        store_longi = request.form['Longitude']
-        store_lati = request.form['Latitude']
-        store_photo = request.files['image']
+        storepincode = int(request.form['pincode'])
+        store_longi = float(request.form['Longitude'])
+        store_lati = float(request.form['Latitude'])
+        # store_photo = request.files['image']
 
         #print(store_photo.filename)
         # store_photo.save(os.path.join(app.config['UPLOAD_FOLDER'], store_photo.filename))
         cursor = db.connection.cursor()
         cursor.execute(''' INSERT INTO storeowner VALUES(NULL, %s, %s, %s, %s) ''', (storeKeeperName, storeKeeperPhone, storeKeeperEmail, hash_password))
         db.connection.commit()
+        cursor.close()
         # # storeing the store details into database
         # # store_owner = StoreOwner(storeKeeperName = storeKeeperName, storeKeeperPhone = storeKeeperPhone, storeKeeperEmail = storeKeeperEmail, Password = hash_password)
         # # db.session.add(store_owner)
         # # db.session.commit()
-
+        
+        cursor = db.connection.cursor()
         cursor.execute(''' SELECT storeOwnerId FROM storeowner WHERE storeKeeperEmail = %s AND Password = %s ''', (storeKeeperEmail, hash_password))
         storeOwnerId = cursor.fetchone()
         
         # # store_ownerdetails = StoreOwner.query.filter_by(storeKeeperEmail = storeKeeperEmail, Password = hash_password)
         # # storeOwnerId = store_ownerdetails.storeOwnerId
+        print(storeOwnerId[0], storeKeeperName, storeKeeperPhone, storeKeeperEmail, store_lati, store_longi, storeaddress, storecountry, storecity)
 
-        cursor.execute(''' INSERT INTO store VALUES(NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ''', (storeOwnerId, storename, storetype, store_photo.filename, storeaddress, storecity, storestate, storecountry, storepincode, store_longi, store_lati))
+        cursor.execute(''' INSERT INTO store VALUES(NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ''', (storeOwnerId, storename, storetype, "NULL", storeaddress, storecity, storestate, storecountry, storepincode, store_longi, store_lati))
         db.connection.commit()
 
         # # store = Store(storeOwnerId = storeOwnerId, storeName = storename, storeType = storetype, storeAddress = storeaddress, City = storecity, State = storestate, Country = storecountry, Pincode = storepincode, Longitude = store_longi, Latitude = store_lati)
@@ -244,7 +248,7 @@ def invoice():
 
         bill = {
             "billed" : session['userName'],
-            "Date" : orderdate,
+            "Date" : bookingdate,
             "OrderId" : order_Id,
             "Unit" : bagCount,
             "Days" : orderDuration,
@@ -254,6 +258,11 @@ def invoice():
         print(order_Id)
 
     return render_template("invoice.html", bill = bill)
+
+@app.route('/payment')
+def payment():
+    return render_template("payment.html")
+
 
 if __name__ == "__main__" :
     app.run(debug = True)

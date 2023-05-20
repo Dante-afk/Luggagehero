@@ -25,7 +25,7 @@
 
 
     <div class="container mt-5 d-flex justify-content-center">
-      <form id="MyStore">  
+      <form id="MyStore" action = "store" method = "post">  
         <fieldset class="border rounded border-success p-5">
 
           <legend class="text-center" style="font-family: 'Nosifer', cursive;">Become a LuggageHero</legend>
@@ -54,14 +54,12 @@
         </div>
 
 
-        <div class="row mb-3">
-          <div class="col-sm">
+          <div class="col-sm mb-3">
             <input type="text" class="form-control" placeholder="Bussiness Name" name="bussinessname">
           </div>
-          <div class="col-sm">
+          <!-- <div class="col-sm"> 
             <input type="file" class="form-control" placeholder="Image" name="image">
-          </div>
-        </div>
+          </div> -->
 
         <div class="row g-2 mb-3">
           <div class="col-sm">
@@ -96,6 +94,17 @@
           </div>
         </div>
 
+        <div class="mb-3">
+          
+          <input type="text" class="form-control" placeholder="Longitude" name="Longitude" aria-label="Longitude">
+        
+      </div>
+
+
+      <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Latitude" name="Latitude" aria-label="Latitude">
+      </div>
+
         <div class="form-control" id="BussinessAddress"></div>
         <footer class="blockquote-footer d-flex justify-content-end mb-4">Bussiness Address with City Name</footer>
 
@@ -113,10 +122,6 @@
 
 
     <script>
-<<<<<<< HEAD
-
-=======
->>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
           mapboxgl.accessToken = 'pk.eyJ1IjoibmF5YW5tZyIsImEiOiJja3hrcnh3MGQwNWdxMm9rb3ZhaWdlM2I1In0.AApGj8R9Bh-iyGOkfs-Dpw';
             const geocoder = new MapboxGeocoder({
               accessToken: mapboxgl.accessToken,
@@ -130,43 +135,7 @@
                 address_coord['Longitude'] = e.result["center"][0];
                 address_coord['Latitude'] = e.result["center"][1];
             }); 
-
-<<<<<<< HEAD
-
-
-          document.getElementById("MyStore").addEventListener('submit', handleform);
-
-=======
-          document.getElementById("MyStore").addEventListener('submit', handleform);
->>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
-          function handleform(e){
-            e.preventDefault();
-      
-            var Myform = e.srcElement;
-            console.log(Myform)
-            var fd = new FormData(Myform);
-
-            fd.append('Longitude', address_coord['Longitude']);
-            fd.append('Latitude', address_coord['Latitude']);
-            
-            var request = new XMLHttpRequest();
-            request.open("POST", "http://127.0.0.1:5000/store");
-            request.send(fd);
-
-            console.log("Form data submitted")
-          }
-<<<<<<< HEAD
-=======
-          
->>>>>>> 8ff5d64a1dcc4b4c5c31eaef0004f75a236cacc5
-
-
     </script>
-
-
-
-
-
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
