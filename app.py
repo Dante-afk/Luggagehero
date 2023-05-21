@@ -24,6 +24,9 @@ obj_bcrpt = Bcrypt(app)
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
+    userSession = ''
+    if(session['userName']) :
+        userSession = session['userName']
     if request.method == 'POST' and 'location' in request.form :
         location = request.form['location']
         session['location'] = location
@@ -32,7 +35,7 @@ def home():
         print(session['userid'])
         return redirect(url_for('index'))
 
-    return render_template('home.html')
+    return render_template('home.html', userName = userSession)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -57,9 +60,11 @@ def login():
         
     return render_template("login.html")
 
-@app.route('/profile')
-def profile():
-    render_template("home.html")
+@app.route('/logout')
+def logout():
+    session['userName'] = ''
+    session['userid'] = ''
+    return render_template('home.html', userName = session['userName'])
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -198,18 +203,19 @@ def store_registration():
         
     return render_template("store.html")
 
-@app.route("/booking", methods = ['POST', 'GET'])
-def storebooking():
+@app.route("/bookingOption", methods = ['POST', 'GET'])
+def storebookingOption():
     store_name = ""
+    
     if request.method == 'POST' and 'storeId' in request.form :
         storeid = request.form['storeId']
         session['storeId'] = storeid
         cursor = db.connection.cursor()
         cursor.execute(''' SELECT storeName FROM store WHERE storeId = %s ''', (storeid))
         store_name = cursor.fetchone()
+        session['storeName'] = store_name
         cursor.close()
         print(session['userid'])
-
         # session['bagCount'] = bagCount
         # session['orderDuration'] = orderDuration
         # session['bookingdate'] = bookingdate
@@ -217,22 +223,46 @@ def storebooking():
         # session['billAmount'] = billAmount
         # print("data reached backend")
 
-    return render_template("booking.html", storename = store_name)
+    return render_template("bookingOption.html", storename = store_name)
+
+@app.route("/booking", methods = ['POST', 'GET'])
+def storebooking():
+    bookingDetails = {}
+    if request.method == 'POST' and 'bookingtype' in request.form :
+        store_name = session['storeName'][0]
+        bookingType = request.form['bookingtype']  
+        bookingDetails['store_name'] = store_name
+        bookingDetails['bookingType'] = bookingType
+        print(bookingDetails['bookingType'])
+        print(type(bookingDetails['bookingType']))     
+    print(bookingDetails) 
+
+    return render_template("booking.html", bookingDetails = bookingDetails)
 
 @app.route("/invoice", methods = ['POST', 'GET'])
 def invoice():
-    if request.method == 'POST' and 'bag_Count' in request.form and 'day_Count' in request.form and 'date' in request.form :
+    if request.method == 'POST' and 'bag_Count' in request.form and ('day_Count' in request.form or 'hour_Count' in request.form) and 'date' in request.form :
         userId = session['userid']
         storeId = int(session['storeId'])
         bagCount = int(request.form['bag_Count'])
-        orderDuration = int(request.form['day_Count'])
+        bookingtype = ''
+        orderDuration = 0
+        billAmount = 1
+        if(request.form['bookingtype'] == 'hour'):
+            bookingtype = request.form['bookingtype']
+            orderDuration = int(request.form['hour_Count'])
+            billAmount = int(bagCount) * int(orderDuration) * 30
+        else:
+            bookingtype = request.form['bookingtype']
+            orderDuration = int(request.form['day_Count'])
+            billAmount = int(bagCount) * int(orderDuration) * 80
+        
         bookingdate = request.form['date']
         print(bookingdate)
         print(type(bookingdate))
         orderdate = str(date.today())
         print(orderdate)
         print(type(orderdate))
-        billAmount = int(bagCount) * int(orderDuration) * 80
         
         cursor = db.connection.cursor()
         cursor.execute('''INSERT INTO `Order` VALUES (NULL,%s,%s,%s,%s,%s,%s,%s)''', (userId,storeId,bagCount,orderDuration,orderdate,bookingdate,billAmount))
@@ -251,7 +281,8 @@ def invoice():
             "Date" : bookingdate,
             "OrderId" : order_Id,
             "Unit" : bagCount,
-            "Days" : orderDuration,
+            "bookingType" : bookingtype,
+            "orderDuration" : orderDuration,
             "billAmount" : billAmount
         }
         print(store_Name)

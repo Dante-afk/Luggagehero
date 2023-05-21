@@ -32,7 +32,32 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            {% if userName != '' %}
             <div class="collapse navbar-collapse" id="navbarSuppportedContent">
+                <div class="collapse navbar-collapse" id="navbarSuppportedContent">
+                    <ul class="navbar-nav ms-auto pr-5">
+                        <li class="nav-item active">
+                            <a class="nav-link text-warning" href="#">{{userName}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" href="logout">LogOut</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% else %}
+            <div class="collapse navbar-collapse" id="navbarSuppportedContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-warning" href="login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="register">Register</a>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+            <!--<div class="collapse navbar-collapse" id="navbarSuppportedContent">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="login">Login</a>
@@ -41,7 +66,7 @@
                         <a class="nav-link" href="register">Register</a>
                     </li>
                 </ul>
-            </div>
+            </div>-->
         </div>    
 
 

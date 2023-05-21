@@ -235,7 +235,7 @@
                 <form action="invoice" method="post">  
                     <fieldset class="border rounded border-success p-4">
             
-                        <legend class="text-center" style="font-family: 'Nosifer', cursive;">{{ storename[0] }}</legend>
+                        <legend class="text-center" style="font-family: 'Nosifer', cursive;">{{ bookingDetails['store_name'] }}</legend>
             
             
                     <div class="mb-3">
@@ -243,11 +243,21 @@
                         <input type="number" class="form-control" placeholder="BagCount" name="bag_Count" aria-label="bag_Count">
                         
                     </div>
-            
-            
+                    {% if bookingDetails['bookingType'] != 'bumper' %}
+                    <select class="form-control mb-3" name="bookingtype" aria-label="" placeholder="Pricing Type">
+                        <option value="hour">Hour</option>
+                    </select>  
+                    <div class="mb-3">
+                        <input type="number" class="form-control" placeholder="HourCount" name="hour_Count" aria-label="hour_Count">
+                    </div>
+                    {% else %}
+                    <select class="form-control" name="bookingtype" aria-label="" placeholder="Pricing Type">
+                        <option value="day">Day</option>
+                    </select>                     
                     <div class="mb-3">
                         <input type="number" class="form-control" placeholder="DayCount" name="day_Count" aria-label="day_Count">
                     </div>
+                    {% endif %}
                     
                     <div class="mb-3">
                         <input type="date" class="form-control" placeholder="Date" name="date" aria-label="date">

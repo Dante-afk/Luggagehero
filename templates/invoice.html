@@ -19,7 +19,7 @@
                             <h1 class="text-uppercase  ">Invoice</h1>
                             <div class="billed"><span class="font-weight-bold text-uppercase"><b>Billed:</b> </span><span class="ml-1">{{bill['billed']}}</span></div>
                             <div class="billed"><span class="font-weight-bold text-uppercase"><b>Date: </b></span><span class="ml-1">{{bill['Date']}}</span></div>
-                            <div class="billed"><span class="font-weight-bold text-uppercase"><b>Order ID:</b> </span><span class="ml-1">{{bill['order_Id']}}</span></div>
+                            <div class="billed"><span class="font-weight-bold text-uppercase"><b>Order ID:</b> </span><span class="ml-1">{{bill['OrderId']}}</span></div>
                         </div>
                         
                     </div>
@@ -30,8 +30,12 @@
                                     <tr>
                                         <th>Product</th>
                                         <th>Unit</th>
+                                        {% if bill['bookingType'] == 'hour' %}
+                                        <th>Hours</th>
+                                        {% else %}
                                         <th>Days</th>
-                                        <th>Price/Bag/hr</th>
+                                        {% endif %}
+                                        <th>Price/Bag/{{bill['bookingType']}}</th>
                                         <th>Total</th>
                                     </tr>
                                 </thead>
@@ -39,8 +43,16 @@
                                     <tr>
                                         <td>Luggage Bag</td>
                                         <td>{{bill['Unit']}}</td>
-                                        <td>{{bill['Days']}}</td>
+                                        {% if bill['bookingType'] == 'hour' %}
+                                        <td>{{bill['orderDuration']}}</td>
+                                        {% else %}
+                                        <td>{{bill['orderDuration']}}</td>
+                                        {% endif %}
+                                        {% if bill['bookingType'] == 'hour' %}
+                                        <td>30</td>
+                                        {% else %}
                                         <td>80</td>
+                                        {% endif %}
                                         <td>{{bill['billAmount']}}</td>
                                     </tr>
                                 </tbody>
